@@ -1,0 +1,196 @@
+{
+  "version": "1.0",
+  "description": "20 labeled queries + 3 out-of-scope refusal traps. Categories cover direct factoids, paraphrases, rare keywords, and cross-file synthesis. Used by src/14_eval_runner.py.",
+  "queries": [
+
+    {
+      "id": "FACT-01",
+      "query": "What is the formula for self-attention?",
+      "expected_sources": ["transformer_architecture.md"],
+      "expected_refusal": false,
+      "category": "direct_factoid",
+      "notes": "Exact lookup — answer literally in the Self-Attention section."
+    },
+    {
+      "id": "FACT-02",
+      "query": "What is cosine similarity?",
+      "expected_sources": ["embeddings_basics.md"],
+      "expected_refusal": false,
+      "category": "direct_factoid",
+      "notes": "Defined explicitly in embeddings_basics.md."
+    },
+    {
+      "id": "FACT-03",
+      "query": "What dimension are nomic-embed-text vectors?",
+      "expected_sources": ["embeddings_basics.md"],
+      "expected_refusal": false,
+      "category": "direct_factoid",
+      "notes": "Answer is 768. Listed under typical dimensions."
+    },
+    {
+      "id": "FACT-04",
+      "query": "What are the six stages of a RAG pipeline?",
+      "expected_sources": ["rag_overview.md"],
+      "expected_refusal": false,
+      "category": "direct_factoid",
+      "notes": "Explicitly numbered list in rag_overview.md."
+    },
+
+    {
+      "id": "PARA-01",
+      "query": "How does a transformer decide which words matter when processing a sentence?",
+      "expected_sources": ["transformer_architecture.md"],
+      "expected_refusal": false,
+      "category": "paraphrase",
+      "notes": "Paraphrased attention question — no literal keywords shared."
+    },
+    {
+      "id": "PARA-02",
+      "query": "Why do we split our text files before embedding them?",
+      "expected_sources": ["rag_overview.md"],
+      "expected_refusal": false,
+      "category": "paraphrase",
+      "notes": "Paraphrase of 'why chunking matters' — 'split' not 'chunk'."
+    },
+    {
+      "id": "PARA-03",
+      "query": "How do I isolate Python packages for different projects?",
+      "expected_sources": ["python_tips.md"],
+      "expected_refusal": false,
+      "category": "paraphrase",
+      "notes": "About venvs, phrased without the word 'virtual environment'."
+    },
+    {
+      "id": "PARA-04",
+      "query": "What's a smart way to write print statements showing text and values together?",
+      "expected_sources": ["python_tips.md"],
+      "expected_refusal": false,
+      "category": "paraphrase",
+      "notes": "Describes f-strings without saying f-string."
+    },
+
+    {
+      "id": "KEY-01",
+      "query": "What is HNSW?",
+      "expected_sources": ["vector_databases.md"],
+      "expected_refusal": false,
+      "category": "rare_keyword",
+      "notes": "Rare acronym — BM25 should crush this."
+    },
+    {
+      "id": "KEY-02",
+      "query": "What does FAISS stand for?",
+      "expected_sources": ["vector_databases.md"],
+      "expected_refusal": false,
+      "category": "rare_keyword",
+      "notes": "Answer: Facebook AI Similarity Search."
+    },
+    {
+      "id": "KEY-03",
+      "query": "What is BPE?",
+      "expected_sources": ["embeddings_basics.md"],
+      "expected_refusal": true,
+      "category": "rare_keyword",
+      "notes": "TRICKY — BPE is mentioned in my learning notes but NOT in data/. Should refuse."
+    },
+    {
+      "id": "KEY-04",
+      "query": "What does softmax(Q · K^T / sqrt(d_k)) · V compute?",
+      "expected_sources": ["transformer_architecture.md"],
+      "expected_refusal": false,
+      "category": "rare_keyword",
+      "notes": "Literal formula search — should find Self-Attention chunk."
+    },
+
+    {
+      "id": "SYN-01",
+      "query": "Why do embedding systems need vector databases?",
+      "expected_sources": ["embeddings_basics.md", "vector_databases.md"],
+      "expected_refusal": false,
+      "category": "cross_file_synthesis",
+      "notes": "Requires joining concepts across two files."
+    },
+    {
+      "id": "SYN-02",
+      "query": "When should I use RAG instead of fine-tuning?",
+      "expected_sources": ["rag_overview.md"],
+      "expected_refusal": false,
+      "category": "cross_file_synthesis",
+      "notes": "Reasoning over the 'When NOT to Use RAG' section."
+    },
+    {
+      "id": "SYN-03",
+      "query": "What's the difference between encoder-only and decoder-only transformers?",
+      "expected_sources": ["transformer_architecture.md"],
+      "expected_refusal": false,
+      "category": "cross_file_synthesis",
+      "notes": "Compare two sub-sections within the same file."
+    },
+    {
+      "id": "SYN-04",
+      "query": "Which vector database should I pick for a small learning project?",
+      "expected_sources": ["vector_databases.md"],
+      "expected_refusal": false,
+      "category": "cross_file_synthesis",
+      "notes": "Answer should be Chroma or FAISS — requires reading the recommendation list."
+    },
+
+    {
+      "id": "FACT-05",
+      "query": "What is the typical chunk size recommended for RAG?",
+      "expected_sources": ["rag_overview.md"],
+      "expected_refusal": false,
+      "category": "direct_factoid",
+      "notes": "Answer: 200-500 tokens with 50-100 overlap."
+    },
+    {
+      "id": "KEY-05",
+      "query": "What is an lru_cache?",
+      "expected_sources": ["python_tips.md"],
+      "expected_refusal": false,
+      "category": "rare_keyword",
+      "notes": "Specific Python stdlib name — only in python_tips.md."
+    },
+    {
+      "id": "PARA-05",
+      "query": "What are the drawbacks of making vectors too big?",
+      "expected_sources": ["embeddings_basics.md"],
+      "expected_refusal": false,
+      "category": "paraphrase",
+      "notes": "Paraphrase of 'more dimensions = more storage and compute cost'."
+    },
+    {
+      "id": "SYN-05",
+      "query": "What are common reasons a RAG answer is wrong?",
+      "expected_sources": ["rag_overview.md"],
+      "expected_refusal": false,
+      "category": "cross_file_synthesis",
+      "notes": "Maps to the Common Failure Modes section."
+    },
+
+    {
+      "id": "OOS-01",
+      "query": "What is the capital of France?",
+      "expected_sources": [],
+      "expected_refusal": true,
+      "category": "out_of_scope",
+      "notes": "Trivial LLM knowledge — must be refused."
+    },
+    {
+      "id": "OOS-02",
+      "query": "Who wrote the book War and Peace?",
+      "expected_sources": [],
+      "expected_refusal": true,
+      "category": "out_of_scope",
+      "notes": "Trivial LLM knowledge — must be refused."
+    },
+    {
+      "id": "OOS-03",
+      "query": "How do I train a large language model from scratch on my laptop?",
+      "expected_sources": [],
+      "expected_refusal": true,
+      "category": "out_of_scope",
+      "notes": "Sounds AI-relevant but not covered in our 5 files. Must refuse."
+    }
+  ]
+}
